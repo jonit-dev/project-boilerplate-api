@@ -9,3 +9,5 @@
 ```
 docker-compose up
 ```
+
+3. Get your .env file with the project admin (joaopaulofurtado@live.com)
