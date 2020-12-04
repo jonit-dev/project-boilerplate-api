@@ -4,7 +4,11 @@ import { inject } from "inversify";
 import { controller, httpGet, interfaces, queryParam } from "inversify-express-utils";
 
 import { staticPath } from "../../constants/path.constants";
+import { BadRequestError } from "../../errors/BadRequestError";
 import { EncryptionHelper } from "../../libs/encryption.helper";
+import { AuthMiddleware } from "../../middlewares/auth.middleware";
+import { IRequestCustom } from "../../types/express.types";
+import { IUser } from "./user.model";
 import { UserService } from "./user.service";
 
 @controller("/users")
@@ -14,9 +18,16 @@ export class UserController implements interfaces.Controller {
     @inject("EncryptionHelper") private encryptionHelper: EncryptionHelper
   ) { }
 
-  @httpGet("/")
-  private getUsers(req: Request, res: Response): [] {
-    return [];
+  @httpGet("/self", AuthMiddleware)
+  private async ownInfo(req: IRequestCustom, res: Response): Promise<IUser> {
+
+    const user = req.user;
+
+    if (!user) {
+      throw new BadRequestError("User does not exists!");
+    }
+
+    return user;
   }
 
   @httpGet("/unsubscribe")

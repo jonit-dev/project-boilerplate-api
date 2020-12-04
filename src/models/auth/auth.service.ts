@@ -105,7 +105,7 @@ export class AuthService {
         const accessToken = jwt.sign(
           { _id: user._id, email: user.email },
           appEnv.authentication.JWT_SECRET!,
-          { expiresIn: "20m" }
+          // { expiresIn: "20m" }
         );
 
         return accessToken;

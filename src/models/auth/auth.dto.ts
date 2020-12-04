@@ -21,6 +21,23 @@ export class AuthSignUpDTO {
   @MinLength(3)
   @MaxLength(50)
   password: string;
+
+  @IsDefined()
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(500)
+  address: string;
+
+  @IsDefined()
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(500)
+  phone: string;
+
+
+
 }
 
 export class AuthLoginDTO {

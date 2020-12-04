@@ -24,6 +24,8 @@ const userSchema = createSchema(
     }),
     email: Type.string({ required: true }),
     password: Type.string(),
+    address: Type.string(),
+    phone: Type.string(),
     salt: Type.string(),
     unsubscribed: Type.boolean({ default: false }),
     refreshTokens: Type.array().of({
@@ -78,7 +80,7 @@ userSchema.methods.generateAccessToken = async function (): Promise<
   const accessToken = jwt.sign(
     { _id: user._id, email: user.email },
     appEnv.authentication.JWT_SECRET!,
-    { expiresIn: "20m" }
+    // { expiresIn: "20m" }
   );
   const refreshToken = jwt.sign(
     { _id: user._id, email: user.email },
