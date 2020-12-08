@@ -6,6 +6,7 @@ import { controller, httpGet, interfaces, queryParam } from "inversify-express-u
 import { staticPath } from "../../constants/path.constants";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { EncryptionHelper } from "../../libs/encryption.helper";
+import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { IRequestCustom } from "../../types/express.types";
 import { IUser } from "./user.model";
@@ -24,7 +25,7 @@ export class UserController implements interfaces.Controller {
     const user = req.user;
 
     if (!user) {
-      throw new BadRequestError("User does not exists!");
+      throw new BadRequestError(TS.translate("users", "userNotFound"));
     }
 
     return user;
@@ -36,7 +37,7 @@ export class UserController implements interfaces.Controller {
     if (!hashEmail) {
       return res.status(500).send({
         status: "error",
-        message: "No hashEmail provided for unsubscribe function!"
+        message: TS.translate("error", "noHashEmail")
       });
     }
     const email = this.encryptionHelper.decrypt(String(hashEmail));

@@ -1,6 +1,7 @@
 import { appEnv } from "../config/env";
 import { IServerBootstrapVars as IServerBootstrapConfig } from "../types/express.types";
 import { ConsoleHelper } from "./console.helper";
+import { TS } from "./translation.helper";
 
 export class ServerHelper {
   public static showBootstrapMessage(config: IServerBootstrapConfig): void {
@@ -27,8 +28,15 @@ export class ServerHelper {
         terminalColor = "BLUE";
         break;
     }
+
     consoleHelper.coloredLog(
-      `🤖: ${appName} server's listening on port ${port} - Timezone ${timezone} - Language: ${language} - Admin: ${adminEmail} - PhoneLocale: ${phoneLocale}`,
+      `🤖: ${TS.translate("global", "serverRunning", {
+        env: appEnv.general.ENV!,
+        port: String(port),
+        language,
+        timezone,
+        adminEmail
+      })}`,
       terminalColor
     );
   }

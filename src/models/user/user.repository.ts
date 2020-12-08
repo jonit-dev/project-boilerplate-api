@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 
 import { NotFoundError } from "../../errors/NotFoundError";
+import { TS } from "../../libs/translation.helper";
 import { IUser, User } from "./user.model";
 
 @injectable()
@@ -11,7 +12,7 @@ export class UserRepository {
     const user = await User.findOne(params);
 
     if (!user) {
-      throw new NotFoundError("User not found!");
+      throw new NotFoundError(TS.translate("users", "userNotFound"));
     }
 
     return user;

@@ -9,6 +9,7 @@ import { InternalServerError } from "../../errors/InternalServerError";
 import { NotFoundError } from "../../errors/NotFoundError";
 import { UnauthorizedError } from "../../errors/UnauthorizedError";
 import { GoogleOAuthHelper } from "../../libs/googleOauth.helper";
+import { TS } from "../../libs/translation.helper";
 import { IGoogleOAuthUserInfoResponse } from "../../types/googleOAuth.types";
 import { UserAuthFlow } from "../../types/user.types";
 import { IUser, User } from "../user/user.model";
@@ -33,7 +34,7 @@ export class AuthService {
     // first, check if an user with the same e-mail already exists
     if (await User.checkIfExists(email)) {
       throw new ConflictError(
-        `An user with this e-mail (${email}) already exists! Please, try again with a different one.`
+        TS.translate("users", "userAlreadyExists", { email })
       );
     }
     return this.authRepository.signUp(authSignUpDTO);
@@ -46,7 +47,7 @@ export class AuthService {
     const user = await User.findByCredentials(email, password);
 
     if (!user) {
-      throw new NotFoundError("Invalid credentials. Please, try again!");
+      throw new NotFoundError(TS.translate("auth", "invalidCredentials"));
     }
 
     // else, if we got an user with these credentials, lets generate an accessToken
@@ -82,15 +83,15 @@ export class AuthService {
   ): Promise<string | false> {
     if (!refreshToken) {
       throw new UnauthorizedError(
-        "You're not allowed to access this resource!"
+        TS.translate("auth", "notAllowedResource")
       );
     }
 
     if (!user.refreshTokens) {
-      throw new BadRequestError("Your user does not have refreshTokens.");
+      throw new BadRequestError(TS.translate("auth", "dontHaveRefreshTokens"));
     }
     if (!user.refreshTokens.find((item) => item.token === refreshToken)) {
-      throw new BadRequestError("Error: Your refreshToken is invalid");
+      throw new BadRequestError(TS.translate("auth", "refreshTokenInvalid"));
     }
 
     jwt.verify(
@@ -98,7 +99,7 @@ export class AuthService {
       appEnv.authentication.REFRESH_TOKEN_SECRET!,
       (err, payload: any) => {
         if (err) {
-          throw new ForbiddenError("Error: Your refreshToken is invalid");
+          throw new ForbiddenError(TS.translate("auth", "refreshTokenInvalid"));
         }
 
         // provide a new accessToken to the user
@@ -136,7 +137,7 @@ export class AuthService {
   ): Promise<IAuthResponse> {
     if (!googleUserInfo.email) {
       throw new InternalServerError(
-        "Cannot login this user: Google's e-mail not provided!"
+        TS.translate("auth", "oauthGoogleEmailNotProvided")
       );
     }
 

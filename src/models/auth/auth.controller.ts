@@ -3,6 +3,7 @@ import { inject } from "inversify";
 import { controller, httpGet, httpPost, interfaces, request, requestBody, response } from "inversify-express-utils";
 
 import { InternalServerError } from "../../errors/InternalServerError";
+import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
 import { HttpStatusCode, IRequestCustom } from "../../types/express.types";
@@ -102,9 +103,10 @@ export class AuthController implements interfaces.Controller {
 
     if (!accessToken) {
       throw new InternalServerError(
-        "Error while trying to generate your access token!"
+        TS.translate("auth", "oauthAccessTokenError")
       );
     }
+
 
     return res.status(HttpStatusCode.OK).send({
       accessToken,
