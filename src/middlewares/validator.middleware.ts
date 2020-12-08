@@ -1,10 +1,10 @@
-import { HttpStatus } from "@little-sentinel/shared";
+import { HttpStatus, IValidationError } from "@little-sentinel/shared";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
 
 import { BadRequestError } from "../errors/BadRequestError";
-import { IValidationError } from "../types/validation.types";
+
 
 export const DTOValidatorMiddleware = (dtoClass: any) => {
   return function (req: Request, res: Response, next: NextFunction): any {
