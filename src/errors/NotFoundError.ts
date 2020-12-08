@@ -1,9 +1,10 @@
-import { HttpStatusCode } from "../types/express.types";
+import { HttpStatus } from "@little-sentinel/shared";
+
 import { ApplicationError } from "./ApplicationError";
 
 export class NotFoundError extends ApplicationError {
   constructor(message) {
-    super(message, HttpStatusCode.NotFound);
+    super(message, HttpStatus.NotFound);
 
     this.error = NotFoundError.name;
   }

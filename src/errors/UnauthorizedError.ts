@@ -1,9 +1,10 @@
-import { HttpStatusCode } from "../types/express.types";
+import { HttpStatus } from "@little-sentinel/shared";
+
 import { ApplicationError } from "./ApplicationError";
 
 export class UnauthorizedError extends ApplicationError {
   constructor(message) {
-    super(message, HttpStatusCode.Unauthorized);
+    super(message, HttpStatus.Unauthorized);
 
     this.error = UnauthorizedError.name;
   }

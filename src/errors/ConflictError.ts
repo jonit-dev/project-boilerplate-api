@@ -1,9 +1,10 @@
-import { HttpStatusCode } from "../types/express.types";
+import { HttpStatus } from "@little-sentinel/shared";
+
 import { ApplicationError } from "./ApplicationError";
 
 export class ConflictError extends ApplicationError {
   constructor(message) {
-    super(message, HttpStatusCode.Conflict);
+    super(message, HttpStatus.Conflict);
 
     this.error = ConflictError.name;
   }

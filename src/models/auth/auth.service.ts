@@ -1,3 +1,4 @@
+import { IGoogleOAuthUserInfoResponse } from "@little-sentinel/shared";
 import { inject, injectable } from "inversify";
 import jwt from "jsonwebtoken";
 
@@ -10,7 +11,6 @@ import { NotFoundError } from "../../errors/NotFoundError";
 import { UnauthorizedError } from "../../errors/UnauthorizedError";
 import { GoogleOAuthHelper } from "../../libs/googleOauth.helper";
 import { TS } from "../../libs/translation.helper";
-import { IGoogleOAuthUserInfoResponse } from "../../types/googleOAuth.types";
 import { UserAuthFlow } from "../../types/user.types";
 import { IUser, User } from "../user/user.model";
 import { AuthLoginDTO, AuthSignUpDTO } from "./auth.dto";

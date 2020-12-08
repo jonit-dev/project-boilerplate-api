@@ -1,3 +1,4 @@
+import { HttpStatus, IGoogleOAuthUrlResponse, IGoogleOAuthUserInfoResponse } from "@little-sentinel/shared";
 import { Request, Response } from "express";
 import { inject } from "inversify";
 import { controller, httpGet, httpPost, interfaces, request, requestBody, response } from "inversify-express-utils";
@@ -6,12 +7,12 @@ import { InternalServerError } from "../../errors/InternalServerError";
 import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
-import { HttpStatusCode, IRequestCustom } from "../../types/express.types";
-import { IGoogleOAuthUrlResponse, IGoogleOAuthUserInfoResponse } from "../../types/googleOAuth.types";
+import { IRequestCustom } from "../../types/express.types";
 import { IUser } from "../user/user.model";
 import { AuthLoginDTO, AuthRefreshTokenDTO, AuthSignUpDTO } from "./auth.dto";
 import { AuthService } from "./auth.service";
 import { IAuthRefreshTokenResponse, IAuthResponse } from "./auth.types";
+
 
 @controller("/auth")
 export class AuthController implements interfaces.Controller {
@@ -60,7 +61,7 @@ export class AuthController implements interfaces.Controller {
 
     const newUser = await this.authService.signUp(authSignUpDTO);
 
-    return res.status(HttpStatusCode.Created).send(newUser);
+    return res.status(HttpStatus.Created).send(newUser);
   }
 
   @httpPost("/login", DTOValidatorMiddleware(AuthLoginDTO))
@@ -87,7 +88,7 @@ export class AuthController implements interfaces.Controller {
 
     this.authService.logout(user, refreshToken);
 
-    return res.status(HttpStatusCode.OK).send();
+    return res.status(HttpStatus.OK).send();
   }
 
   @httpPost("/refresh-token", DTOValidatorMiddleware(AuthRefreshTokenDTO), AuthMiddleware)
@@ -108,7 +109,7 @@ export class AuthController implements interfaces.Controller {
     }
 
 
-    return res.status(HttpStatusCode.OK).send({
+    return res.status(HttpStatus.OK).send({
       accessToken,
     });
   }

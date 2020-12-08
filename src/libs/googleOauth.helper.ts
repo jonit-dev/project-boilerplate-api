@@ -1,10 +1,10 @@
+import { IGoogleConfig, IGoogleOAuthTokenPayload } from "@little-sentinel/shared";
 import axios from "axios";
 import { google } from "googleapis";
 import { injectable } from "inversify";
 
 import { appEnv } from "../config/env";
 import { InternalServerError } from "../errors/InternalServerError";
-import { IGoogleConfig, IGoogleOAuthTokenPayload } from "../types/googleOAuth.types";
 
 @injectable()
 export class GoogleOAuthHelper {

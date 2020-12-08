@@ -1,9 +1,9 @@
+import { HttpStatus } from "@little-sentinel/shared";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
 
 import { BadRequestError } from "../errors/BadRequestError";
-import { HttpStatusCode } from "../types/express.types";
 import { IValidationError } from "../types/validation.types";
 
 export const DTOValidatorMiddleware = (dtoClass: any) => {
@@ -27,7 +27,7 @@ export const DTOValidatorMiddleware = (dtoClass: any) => {
             }
           }
 
-          return res.status(HttpStatusCode.BadRequest).send(new BadRequestError(errorList));
+          return res.status(HttpStatus.BadRequest).send(new BadRequestError(errorList));
         } else {
           res.locals.input = output;
           next();

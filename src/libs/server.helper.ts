@@ -1,10 +1,11 @@
 import { appEnv } from "../config/env";
-import { IServerBootstrapVars as IServerBootstrapConfig } from "../types/express.types";
+import { IServerBootstrapVars } from "../types/express.types";
 import { ConsoleHelper } from "./console.helper";
 import { TS } from "./translation.helper";
 
+
 export class ServerHelper {
-  public static showBootstrapMessage(config: IServerBootstrapConfig): void {
+  public static showBootstrapMessage(config: IServerBootstrapVars): void {
     const {
       port,
       appName,

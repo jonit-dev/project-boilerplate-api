@@ -1,10 +1,10 @@
+import { UserAuthFlow, UserTypes } from "@little-sentinel/shared";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createSchema, ExtractDoc, Type, typedModel } from "ts-mongoose";
 
 import { appEnv } from "../../config/env";
 import { TypeHelper } from "../../libs/type.helper";
-import { UserAuthFlow, UserRoles } from "../../types/user.types";
 import { IAuthResponse } from "../auth/auth.types";
 
 const mongooseHidden = require("mongoose-hidden")();
@@ -14,8 +14,8 @@ const userSchema = createSchema(
     name: Type.string(),
     role: Type.string({
       required: true,
-      default: UserRoles.Regular,
-      enum: TypeHelper.enumToStringArray(UserRoles),
+      default: UserTypes.Guardian,
+      enum: TypeHelper.enumToStringArray(UserTypes),
     }),
     authFlow: Type.string({
       required: true,

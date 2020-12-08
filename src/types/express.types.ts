@@ -9,26 +9,6 @@ export interface IRequestCustom extends Request {
   user?: IUser;
 }
 
-export enum EnvType {
-  Development = "Development",
-  Staging = "Staging",
-  Production = "Production"
-}
-
-export enum HttpStatusCode {
-  OK = 200,
-  Created = 201,
-  MovedPermanently = 301,
-  BadRequest = 400,
-  Unauthorized = 401,
-  Forbidden = 403,
-  NotFound = 404,
-  UnprocessableEntity = 422,
-  MethodNotAllowed = 405,
-  InternalServerError = 500,
-  Conflict = 409,
-}
-
 export interface IServerBootstrapVars {
   appName: string;
   timezone: string;
