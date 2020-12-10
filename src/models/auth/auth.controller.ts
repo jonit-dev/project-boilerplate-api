@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { inject } from "inversify";
 import { controller, httpGet, httpPost, interfaces, request, requestBody, response } from "inversify-express-utils";
 
+import { appEnv } from "../../config/env";
 import { InternalServerError } from "../../errors/InternalServerError";
 import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
@@ -13,7 +14,9 @@ import { AuthLoginDTO, AuthRefreshTokenDTO, AuthSignUpDTO } from "./auth.dto";
 import { AuthService } from "./auth.service";
 import { IAuthRefreshTokenResponse, IAuthResponse } from "./auth.types";
 
-
+//! Reference:
+//! Cloud setup: https://medium.com/the-dev-caf%C3%A9/log-in-with-google-oauth-2-0-node-js-and-passport-js-1f8abe096175 (ignore the passport part)
+//! Logic: https://medium.com/@tomanagle/google-oauth-with-node-js-4bff90180fe6
 @controller("/auth")
 export class AuthController implements interfaces.Controller {
   constructor(@inject("AuthService") private authService: AuthService) { }
@@ -36,7 +39,7 @@ export class AuthController implements interfaces.Controller {
   public async googleOAuthRedirect(
     req: Request,
     res: Response
-  ): Promise<IAuthResponse> {
+  ): Promise<any> {
     const { code, scope } = req.query;
 
     const googleUserInfo: IGoogleOAuthUserInfoResponse = await this.authService.getGoogleUser(
@@ -48,10 +51,8 @@ export class AuthController implements interfaces.Controller {
       refreshToken,
     } = await this.authService.googleOAuthSync(googleUserInfo);
 
-    return {
-      accessToken,
-      refreshToken,
-    };
+    // redirect to our APP with a provided accessToken ( so he can fetch his user info )
+    return res.redirect(`${appEnv.general.APP_URL}/auth?method=google&accessToken=${accessToken}&refreshToken=${refreshToken}`);
   }
 
   // JWT FLOW ========================================

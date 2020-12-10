@@ -6,12 +6,16 @@ import { injectable } from "inversify";
 import { appEnv } from "../config/env";
 import { InternalServerError } from "../errors/InternalServerError";
 
+
+//! Reference:
+//! Cloud setup: https://medium.com/the-dev-caf%C3%A9/log-in-with-google-oauth-2-0-node-js-and-passport-js-1f8abe096175 (ignore the passport part)
+//! Logic: https://medium.com/@tomanagle/google-oauth-with-node-js-4bff90180fe6
 @injectable()
 export class GoogleOAuthHelper {
   private googleConfig: IGoogleConfig = {
     clientID: appEnv.authentication.googleOAuth.GOOGLE_CLIENT_ID!,
     clientSecret: appEnv.authentication.googleOAuth.GOOGLE_SECRET!,
-    redirectURI: `${appEnv.general.APP_URL!}/auth/google/redirect`,
+    redirectURI: `${appEnv.general.API_URL!}/auth/google/redirect`,
   };
 
   private defaultScope = [
