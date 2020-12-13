@@ -34,12 +34,15 @@ const userSchema = createSchema(
 
     // Static method types
     ...({} as {
+      hashAndSavePassword: (newPassword: string) => Promise<boolean>;
       isValidPassword: (password: string) => Promise<boolean>;
       generateAccessToken: () => Promise<IAuthResponse>;
     }),
   },
   { timestamps: { createdAt: true, updatedAt: true } }
 );
+
+export type IUser = ExtractDoc<typeof userSchema>;
 
 //  Hidden fields (not exposed through API responses)
 userSchema.plugin(mongooseHidden, {
@@ -53,13 +56,10 @@ userSchema.plugin(mongooseHidden, {
 });
 
 userSchema.pre("save", async function (next): Promise<void> {
-  const user: any = this;
-  const salt = await bcrypt.genSalt();
+  const user = this as IUser;
 
   if (user.isModified("password")) {
-    const hash = await bcrypt.hash(user.password, salt);
-    user.password = hash;
-    user.salt = salt;
+    await user.hashAndSavePassword(user.password!);
     next();
   }
 });
@@ -72,10 +72,26 @@ userSchema.methods.isValidPassword = async function (
   return comparisonHash === this.password;
 };
 
+userSchema.methods.hashAndSavePassword = async function (newPassword: string): Promise<boolean> {
+  const user = this as IUser;
+  const salt = await bcrypt.genSalt();
+
+  try {
+    const hash = await bcrypt.hash(newPassword, salt);
+    user.password = hash;
+    user.salt = salt;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+
+  return true;
+};
+
 userSchema.methods.generateAccessToken = async function (): Promise<
   IAuthResponse
 > {
-  const user: any = this;
+  const user = this as IUser;
 
   const accessToken = jwt.sign(
     { _id: user._id, email: user.email },
@@ -87,7 +103,7 @@ userSchema.methods.generateAccessToken = async function (): Promise<
     appEnv.authentication.REFRESH_TOKEN_SECRET!
   );
 
-  user.refreshTokens = [...user.refreshTokens, { token: refreshToken }];
+  user.refreshTokens = [...user.refreshTokens!, { token: refreshToken }];
 
   await user.save();
 
@@ -97,7 +113,6 @@ userSchema.methods.generateAccessToken = async function (): Promise<
   };
 };
 
-export type IUser = ExtractDoc<typeof userSchema>;
 
 export const User = typedModel("User", userSchema, undefined, undefined, {
   // Static methods ========================================

@@ -52,7 +52,7 @@ export class AuthController implements interfaces.Controller {
     } = await this.authService.googleOAuthSync(googleUserInfo);
 
     // redirect to our APP with a provided accessToken ( so he can fetch his user info )
-    return res.redirect(`${appEnv.general.APP_URL}/auth?method=google&accessToken=${accessToken}&refreshToken=${refreshToken}`);
+    return res.redirect(`${appEnv.general.APP_URL}/auth?&accessToken=${accessToken}&refreshToken=${refreshToken}`);
   }
 
   // JWT FLOW ========================================
