@@ -4,6 +4,9 @@ import jwt from "jsonwebtoken";
 import { createSchema, ExtractDoc, Type, typedModel } from "ts-mongoose";
 
 import { appEnv } from "../../config/env";
+import { InternalServerError } from "../../errors/InternalServerError";
+import { NotFoundError } from "../../errors/NotFoundError";
+import { TS } from "../../libs/translation.helper";
 import { TypeHelper } from "../../libs/type.helper";
 import { IAuthResponse } from "../auth/auth.types";
 
@@ -34,7 +37,6 @@ const userSchema = createSchema(
 
     // Static method types
     ...({} as {
-      hashAndSavePassword: (newPassword: string) => Promise<boolean>;
       isValidPassword: (password: string) => Promise<boolean>;
       generateAccessToken: () => Promise<IAuthResponse>;
     }),
@@ -57,35 +59,21 @@ userSchema.plugin(mongooseHidden, {
 
 userSchema.pre("save", async function (next): Promise<void> {
   const user = this as IUser;
+  const salt = await bcrypt.genSalt();
 
   if (user.isModified("password")) {
-    await user.hashAndSavePassword(user.password!);
+    const hash = await bcrypt.hash(user.password, salt);
+    user.password = hash;
+    user.salt = salt;
     next();
   }
 });
-
 userSchema.methods.isValidPassword = async function (
   providedPassword: string
 ): Promise<boolean> {
   const comparisonHash = await bcrypt.hash(providedPassword, this.salt);
 
   return comparisonHash === this.password;
-};
-
-userSchema.methods.hashAndSavePassword = async function (newPassword: string): Promise<boolean> {
-  const user = this as IUser;
-  const salt = await bcrypt.genSalt();
-
-  try {
-    const hash = await bcrypt.hash(newPassword, salt);
-    user.password = hash;
-    user.salt = salt;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-
-  return true;
 };
 
 userSchema.methods.generateAccessToken = async function (): Promise<
@@ -128,7 +116,20 @@ export const User = typedModel("User", userSchema, undefined, undefined, {
   findByCredentials: async (email: string, password: string) => {
     const user = await User.findOne({ email });
 
-    if (await user?.isValidPassword(password)) {
+    if (!user) {
+      throw new NotFoundError(TS.translate("users", "userNotFound"));
+    }
+
+    // check if user was created using Basic UserAuthFlow (this route is only for this!)
+
+    if (user.authFlow !== UserAuthFlow.Basic) {
+      throw new InternalServerError(TS.translate("auth", "authModeError"));
+    }
+
+
+    const isValidPassword = await user.isValidPassword(password);
+
+    if (isValidPassword) {
       return user;
     }
 

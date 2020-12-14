@@ -1,7 +1,8 @@
+import { HttpStatus } from "@little-sentinel/shared/dist";
 import { Request, Response } from "express";
 import fs from "fs";
 import { inject } from "inversify";
-import { controller, httpGet, httpPost, interfaces, queryParam, requestBody } from "inversify-express-utils";
+import { controller, httpGet, httpPost, interfaces, JsonContent, queryParam, requestBody } from "inversify-express-utils";
 
 import { staticPath } from "../../constants/path.constants";
 import { BadRequestError } from "../../errors/BadRequestError";
@@ -34,10 +35,15 @@ export class UserController implements interfaces.Controller {
   }
 
   @httpPost("/forgot-password", DTOValidatorMiddleware(UserForgotPasswordDTO))
-  private async forgotPassword(@requestBody() body, req: Request, res: Response): Promise<void> {
+  private async forgotPassword(@requestBody() body, req: Request, res: Response): Promise<Response<JsonContent>> {
 
+    const { email } = body;
 
+    const newPassword = await this.userService.forgotPassword(email);
 
+    return res.status(HttpStatus.OK).send({
+      newPassword
+    });
 
   }
 
