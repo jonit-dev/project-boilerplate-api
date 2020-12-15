@@ -53,10 +53,10 @@ export class UserService {
     await user.save();
 
     // send e-mail to user with the new password content
-    await TransactionalEmail.send(user?.email, "Password Recovery", "notification", {
-      notificationGreetings: "Password Recovery",
-      notificationMessage: `You recently requested to reset your password. Here there is: <b>${randomPassword}</b>`,
-      notificationEndPhrase: "We strongly suggest that you <b>change it right away</b>, by logging in through our app and selecting the password change option."
+    await TransactionalEmail.send(user.email, TS.translate("email", "passwordRecoveryGreetings"), "notification", {
+      notificationGreetings: TS.translate("email", "passwordRecoveryGreetings"),
+      notificationMessage: TS.translate("email", "passwordRecoveryMessage", { randomPassword }),
+      notificationEndPhrase: TS.translate("email", "passwordRecoveryEndPhrase")
     });
 
 

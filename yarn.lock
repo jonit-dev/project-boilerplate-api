@@ -39,10 +39,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@little-sentinel/shared@^1.0.77":
-  version "1.0.77"
-  resolved "https://registry.yarnpkg.com/@little-sentinel/shared/-/shared-1.0.77.tgz#99148efbde4cb58c8bcbad49fee0d9f10498bb93"
-  integrity sha512-BQDkEs+h7PmbWn6HqeQhWKJHzWpQRFTOvUwiiaOZXsg85MW+JwvpW1XmnrEy01eZfdMwcVnyT3PrzkBCK1U0GA==
+"@little-sentinel/shared@^1.0.79":
+  version "1.0.79"
+  resolved "https://registry.yarnpkg.com/@little-sentinel/shared/-/shared-1.0.79.tgz#2c4919f6f7b7aa546f5b0dd110a56242853237d3"
+  integrity sha512-/PbJeUjqZfBdTX3XT9t2tjAd4pm0xJ667lMzq70F5r10ZzIGtfNsY5T44F7cQ8fUMQJtjBNdBIcbJFBad4FSuw==
 
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
