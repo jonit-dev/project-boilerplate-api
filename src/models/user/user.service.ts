@@ -2,6 +2,7 @@ import { UserAuthFlow } from "@little-sentinel/shared/dist";
 import randomString from "crypto-random-string";
 import { inject, injectable } from "inversify";
 
+import { TransactionalEmail } from "../../../emails/TransactionalEmail";
 import { appEnv } from "../../config/env";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { InternalServerError } from "../../errors/InternalServerError";
@@ -31,9 +32,8 @@ export class UserService {
 
   public async forgotPassword(email: string): Promise<string> {
 
+    // try to get user with mentioned e-mail
     const user = await User.findOne({ email });
-
-
 
     if (!user) {
       throw new NotFoundError(TS.translate("users", "userNotFound"));
@@ -44,6 +44,7 @@ export class UserService {
     }
 
 
+    // if it succeed, generate a new password and send it back to the user.
     const randomPassword = randomString({ length: 10 });
 
     console.log(`generated random password of ${randomPassword}`);
@@ -51,19 +52,20 @@ export class UserService {
     user.password = randomPassword;
     await user.save();
 
+    // send e-mail to user with the new password content
+    await TransactionalEmail.send(user?.email, "Password Recovery", "notification", {
+      notificationGreetings: "Password Recovery",
+      notificationMessage: `You recently requested to reset your password. Here there is: <b>${randomPassword}</b>`,
+      notificationEndPhrase: "We strongly suggest that you <b>change it right away</b>, by logging in through our app and selecting the password change option."
+    });
+
+
     if (randomPassword) {
       return randomPassword;
     } else {
       throw new InternalServerError(`Error while trying to generate your new password. Please, contact the server admin at ${appEnv.general.ADMIN_EMAIL}`);
     }
 
-
-
-
-    // try to get user with mentioned e-mail
-
-
-    // if it succeed, generate a new password and send it back to the user.
 
 
   }

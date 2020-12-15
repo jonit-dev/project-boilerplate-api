@@ -1,10 +1,8 @@
-{{invoiceNotificationGreetings}}
-{{invoiceNotificationFirstPhrase}}
+[Product Name]
+{{notificationGreetings}}
+{{notificationMessage}}
 
-{{invoiceItemTitle}} {{invoiteItem}}
-{{invoiceAmountDueTitle}} {{invoiceAmount}}
-{{invoiceDueByTitle}} {{invoiceDueBy}}
-{{invoicePayCTA}}
-{{invoiceEndPhrase}}
+{{notificationEndPhrase}} [Unsubscribe Link]
+© 2019 [Product Name]. All rights reserved.
 
-[Unsubscribe Link]
+[Company Name, LLC]
