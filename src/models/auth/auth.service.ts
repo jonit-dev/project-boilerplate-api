@@ -2,6 +2,7 @@ import { IGoogleOAuthUserInfoResponse, UserAuthFlow } from "@little-sentinel/sha
 import { inject, injectable } from "inversify";
 import jwt from "jsonwebtoken";
 
+import { TransactionalEmail } from "../../../emails/TransactionalEmail";
 import { appEnv } from "../../config/env";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { ConflictError } from "../../errors/ConflictError";
@@ -36,7 +37,27 @@ export class AuthService {
         TS.translate("users", "userAlreadyExists", { email })
       );
     }
-    return this.authRepository.signUp(authSignUpDTO);
+
+    const newUser = await this.authRepository.signUp(authSignUpDTO);
+
+    if (newUser) {
+
+      console.log("🤖 Submitting new user's welcome e-mail");
+
+      await TransactionalEmail.send(newUser.email, TS.translate("email", "welcome"), "welcome", {
+        newAccountEmailTitle: TS.translate("email", "welcome"),
+        newAccountEmailFirstParagraph: TS.translate("email", "newAccountEmailFirstParagraph", { appName: appEnv.general.APP_NAME! }),
+        newAccountEmailForReference: TS.translate("email", "newAccountEmailForReference"),
+        userEmail: newUser.email,
+        newAccountEmailBottom: TS.translate("email", "newAccountEmailBottom", { appName: appEnv.general.APP_NAME! })
+      });
+
+
+    }
+
+
+
+    return newUser;
   }
 
   public async login(authLoginDTO: AuthLoginDTO): Promise<IAuthResponse> {
