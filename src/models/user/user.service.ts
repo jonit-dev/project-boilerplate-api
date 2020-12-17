@@ -30,7 +30,7 @@ export class UserService {
     await user.save();
   }
 
-  public async forgotPassword(email: string): Promise<string> {
+  public async forgotPassword(email: string): Promise<boolean> {
 
     // try to get user with mentioned e-mail
     const user = await User.findOne({ email });
@@ -61,7 +61,7 @@ export class UserService {
 
 
     if (randomPassword) {
-      return randomPassword;
+      return true;
     } else {
       throw new InternalServerError(`Error while trying to generate your new password. Please, contact the server admin at ${appEnv.general.ADMIN_EMAIL}`);
     }

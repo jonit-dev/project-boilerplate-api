@@ -39,11 +39,9 @@ export class UserController implements interfaces.Controller {
 
     const { email } = body;
 
-    const newPassword = await this.userService.forgotPassword(email);
+    await this.userService.forgotPassword(email);
 
-    return res.status(HttpStatus.OK).send({
-      newPassword
-    });
+    return res.status(HttpStatus.OK).send();
 
   }
 
