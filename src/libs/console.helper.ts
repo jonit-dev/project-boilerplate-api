@@ -3,6 +3,9 @@ import { injectable } from "inversify";
 
 @injectable()
 export class ConsoleHelper {
+
+  constructor() { }
+
   public coloredLog(
     text: string,
     template: "YELLOW" | "RED" | "BLUE" = "YELLOW"

@@ -12,6 +12,7 @@ import { InternalServerError } from "../errors/InternalServerError";
 //! Logic: https://medium.com/@tomanagle/google-oauth-with-node-js-4bff90180fe6
 @injectable()
 export class GoogleOAuthHelper {
+
   private googleConfig: IGoogleConfig = {
     clientID: appEnv.authentication.googleOAuth.GOOGLE_CLIENT_ID!,
     clientSecret: appEnv.authentication.googleOAuth.GOOGLE_SECRET!,
@@ -22,6 +23,8 @@ export class GoogleOAuthHelper {
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email",
   ];
+
+  constructor() { }
 
   /**
    * Create the google auth object which gives us access to talk to google's apis.

@@ -1,5 +1,5 @@
 import { IGoogleOAuthUserInfoResponse, UserAuthFlow } from "@little-sentinel/shared";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import jwt from "jsonwebtoken";
 
 import { TransactionalEmail } from "../../../emails/TransactionalEmail";
@@ -20,8 +20,8 @@ import { IAuthResponse } from "./auth.types";
 @injectable()
 export class AuthService {
   constructor(
-    @inject("AuthRepository") private authRepository: AuthRepository,
-    @inject("GoogleOAuthHelper") private googleOAuthHelper: GoogleOAuthHelper
+    private authRepository: AuthRepository,
+    private googleOAuthHelper: GoogleOAuthHelper
   ) { }
 
   /* #############################################################|

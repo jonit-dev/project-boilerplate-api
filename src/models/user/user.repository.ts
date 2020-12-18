@@ -7,6 +7,8 @@ import { IUser, User } from "./user.model";
 @injectable()
 export class UserRepository {
 
+  constructor() { }
+
   public async findUser(params: object): Promise<IUser> {
 
     const user = await User.findOne(params);

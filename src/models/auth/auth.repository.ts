@@ -4,6 +4,9 @@ import { IUser, User } from "../user/user.model";
 
 @injectable()
 export class AuthRepository {
+
+  constructor() { }
+
   public async signUp(newUserData): Promise<IUser> {
     //! Note: password is hashed on pre("save") method from userSchema
     const newUser = new User({

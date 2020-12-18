@@ -1,6 +1,5 @@
 import { HttpStatus, IGoogleOAuthUrlResponse, IGoogleOAuthUserInfoResponse } from "@little-sentinel/shared";
 import { Request, Response } from "express";
-import { inject } from "inversify";
 import { controller, httpGet, httpPost, interfaces, request, requestBody, response } from "inversify-express-utils";
 
 import { appEnv } from "../../config/env";
@@ -19,8 +18,8 @@ import { IAuthRefreshTokenResponse, IAuthResponse } from "./auth.types";
 //! Logic: https://medium.com/@tomanagle/google-oauth-with-node-js-4bff90180fe6
 @controller("/auth")
 export class AuthController implements interfaces.Controller {
-  constructor(@inject("AuthService") private authService: AuthService) { }
 
+  constructor(private authService: AuthService) { }
 
   // GOOGLE FLOW ========================================
 

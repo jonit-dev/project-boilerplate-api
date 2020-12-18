@@ -1,6 +1,6 @@
 import { UserAuthFlow } from "@little-sentinel/shared/dist";
 import randomString from "crypto-random-string";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 
 import { TransactionalEmail } from "../../../emails/TransactionalEmail";
 import { appEnv } from "../../config/env";
@@ -15,7 +15,7 @@ import { UserRepository } from "./user.repository";
 export class UserService {
 
   constructor(
-    @inject("UserRepository") private userRepository: UserRepository
+    private userRepository: UserRepository
   ) { }
 
   public async unsubscribeUser(email: string): Promise<void> {

@@ -1,7 +1,6 @@
 import { HttpStatus } from "@little-sentinel/shared/dist";
 import { Request, Response } from "express";
 import fs from "fs";
-import { inject } from "inversify";
 import { controller, httpGet, httpPost, interfaces, JsonContent, queryParam, requestBody } from "inversify-express-utils";
 
 import { staticPath } from "../../constants/path.constants";
@@ -18,8 +17,8 @@ import { UserService } from "./user.service";
 @controller("/users")
 export class UserController implements interfaces.Controller {
   constructor(
-    @inject("UserService") private userService: UserService,
-    @inject("EncryptionHelper") private encryptionHelper: EncryptionHelper
+    private userService: UserService,
+    private encryptionHelper: EncryptionHelper
   ) { }
 
   @httpGet("/self", AuthMiddleware)
