@@ -25,7 +25,7 @@ const userSchema = createSchema(
       default: UserAuthFlow.Basic,
       enum: TypeHelper.enumToStringArray(UserAuthFlow),
     }),
-    email: Type.string({ required: true }),
+    email: Type.string({ required: true, unique: true }),
     password: Type.string(),
     address: Type.string(),
     phone: Type.string(),

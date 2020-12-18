@@ -1,9 +1,9 @@
-import { Response } from "express";
-import { controller, httpPost, interfaces, requestBody } from "inversify-express-utils";
+import { controller, httpGet, httpPost, interfaces, requestBody, requestParam } from "inversify-express-utils";
 
+import { InternalServerError } from "../../errors/InternalServerError";
+import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
-import { IRequestCustom } from "../../types/express.types";
 import { InstitutionCreateDTO } from "./institution.dto";
 import { IInstitution } from "./institution.model";
 import { InstitutionService } from "./institution.service";
@@ -15,8 +15,21 @@ export class InstitutionController implements interfaces.Controller {
   ) { }
 
   @httpPost("/", DTOValidatorMiddleware(InstitutionCreateDTO))
-  private async create(@requestBody() institutionCreateDTO, req: IRequestCustom, res: Response): Promise<IInstitution> {
+  private async create(@requestBody() institutionCreateDTO): Promise<IInstitution> {
+
     return this.institutionService.create(institutionCreateDTO);
+
+  }
+
+  @httpGet("/:id")
+  private async read(@requestParam("id") id: string): Promise<IInstitution> {
+
+    if (!id) {
+      throw new InternalServerError(TS.translate("validation", "isNotEmpty", { field: "Id" }));
+    }
+
+    return this.institutionService.read(id);
+
   }
 }
 

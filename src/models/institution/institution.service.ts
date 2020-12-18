@@ -13,11 +13,11 @@ export class InstitutionService {
   ) { }
 
   public async create(data): Promise<IInstitution> {
+    return this.institutionRepository.create<IInstitution>(Institution, data);
+  }
 
-    const newInstitution = await this.institutionRepository.create(Institution, data) as IInstitution;
-
-    return newInstitution;
-
+  public async read(id: string): Promise<IInstitution> {
+    return this.institutionRepository.read<IInstitution>(Institution, { _id: id });
   }
 
 }

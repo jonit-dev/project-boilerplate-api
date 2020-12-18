@@ -6,10 +6,12 @@ import { InstitutionTypes } from "./institution.types";
 const institutionSchema = createSchema(
   {
     name: Type.string({
-      required: true
+      required: true,
+      unique: true,
     }),
     email: Type.string({
-      required: true
+      required: true,
+      unique: true
     }),
     supervisor: Type.objectId({
       required: true
