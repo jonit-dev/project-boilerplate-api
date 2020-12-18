@@ -1,7 +1,16 @@
-import { controller, httpGet, httpPatch, httpPost, interfaces, requestBody, requestParam } from "inversify-express-utils";
+import { HttpStatus } from "@little-sentinel/shared/dist";
+import {
+  controller,
+  httpDelete,
+  httpGet,
+  httpPatch,
+  httpPost,
+  interfaces,
+  requestBody,
+  requestParam,
+  response,
+} from "inversify-express-utils";
 
-import { InternalServerError } from "../../errors/InternalServerError";
-import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
 import { InstitutionCreateDTO, InstitutionUpdateDTO } from "./institution.dto";
@@ -16,18 +25,11 @@ export class InstitutionController implements interfaces.Controller {
 
   @httpPost("/", DTOValidatorMiddleware(InstitutionCreateDTO))
   private async create(@requestBody() institutionCreateDTO): Promise<IInstitution> {
-
     return this.institutionService.create(institutionCreateDTO);
-
   }
 
   @httpGet("/:id")
   private async read(@requestParam("id") id: string): Promise<IInstitution> {
-
-    if (!id) {
-      throw new InternalServerError(TS.translate("validation", "isNotEmpty", { field: "Id" }));
-    }
-
     return this.institutionService.read(id);
   }
 
@@ -35,14 +37,19 @@ export class InstitutionController implements interfaces.Controller {
   private async update(
     @requestBody() updateFields,
     @requestParam("id") id: string): Promise<IInstitution> {
-
-    if (!id) {
-      throw new InternalServerError(TS.translate("validation", "isNotEmpty", { field: "Id" }));
-    }
-
     return this.institutionService.update(id, updateFields);
+  }
 
+  @httpDelete("/:id")
+  private async delete(
+    @requestParam("id") id: string,
+    @response() res,
+  ): Promise<any> {
 
+    console.log(`deleting institution id ${id}`);
+    await this.institutionService.delete(id);
+
+    return res.status(HttpStatus.OK).send();
   }
 
 }

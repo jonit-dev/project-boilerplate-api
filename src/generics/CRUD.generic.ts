@@ -85,7 +85,24 @@ export class CRUD {
       console.error(error);
       throw error;
     }
-
-
   }
+
+  public async delete<T extends Document>(Model: Model<T>, id): Promise<void> {
+
+    this._isObjectIdValid(id, Model.modelName);
+
+    try {
+      const model = await Model.findOneAndDelete({
+        _id: id
+      });
+
+      if (!model) {
+        throw new NotFoundError(`${Model.modelName} not found.`);
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
 }

@@ -24,4 +24,8 @@ export class InstitutionService {
     return this.institutionRepository.update<IInstitution>(Institution, id, updateFields);
   }
 
+  public async delete(id: string): Promise<void> {
+    return this.institutionRepository.delete<IInstitution>(Institution, id);
+  }
+
 }
