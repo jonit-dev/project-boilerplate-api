@@ -17,6 +17,7 @@ export class InstitutionService {
     const newInstitution = await this.institutionRepository.create(Institution, data) as IInstitution;
 
     return newInstitution;
+
   }
 
 }

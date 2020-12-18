@@ -14,10 +14,10 @@ const institutionSchema = createSchema(
     supervisor: Type.objectId({
       required: true
     }),
-    type: {
+    type: Type.string({
       required: true,
       enum: TypeHelper.enumToStringArray(InstitutionTypes)
-    },
+    }),
     address: Type.string(),
     phone: Type.string()
   },
