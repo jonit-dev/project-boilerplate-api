@@ -11,7 +11,7 @@ export const DTOValidatorMiddleware = (dtoClass: any) => {
   return function (req: Request, res: Response, next: NextFunction): any {
     const output = plainToClass(dtoClass, req.body);
 
-    validate(output, { skipMissingProperties: true }).then(
+    validate(output, { skipMissingProperties: true, whitelist: true, forbidNonWhitelisted: true }).then(
       (errors: IValidationError[]) => {
         // errors is an array of validation errors
         if (errors.length > 0) {

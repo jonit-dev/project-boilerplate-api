@@ -33,3 +33,25 @@ export class InstitutionCreateDTO {
   @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
   phone: string;
 }
+
+
+export class InstitutionUpdateDTO {
+
+  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  name: string;
+
+  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  email: string;
+
+  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  supervisor: string;
+
+  @IsEnum(InstitutionTypes)
+  type: InstitutionTypes;
+
+  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  address: string;
+
+  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  phone: string;
+}

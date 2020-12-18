@@ -1,10 +1,10 @@
-import { controller, httpGet, httpPost, interfaces, requestBody, requestParam } from "inversify-express-utils";
+import { controller, httpGet, httpPatch, httpPost, interfaces, requestBody, requestParam } from "inversify-express-utils";
 
 import { InternalServerError } from "../../errors/InternalServerError";
 import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
-import { InstitutionCreateDTO } from "./institution.dto";
+import { InstitutionCreateDTO, InstitutionUpdateDTO } from "./institution.dto";
 import { IInstitution } from "./institution.model";
 import { InstitutionService } from "./institution.service";
 
@@ -29,7 +29,21 @@ export class InstitutionController implements interfaces.Controller {
     }
 
     return this.institutionService.read(id);
+  }
+
+  @httpPatch("/:id", DTOValidatorMiddleware(InstitutionUpdateDTO))
+  private async update(
+    @requestBody() updateFields,
+    @requestParam("id") id: string): Promise<IInstitution> {
+
+    if (!id) {
+      throw new InternalServerError(TS.translate("validation", "isNotEmpty", { field: "Id" }));
+    }
+
+    return this.institutionService.update(id, updateFields);
+
 
   }
+
 }
 

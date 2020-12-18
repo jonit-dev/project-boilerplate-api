@@ -20,4 +20,8 @@ export class InstitutionService {
     return this.institutionRepository.read<IInstitution>(Institution, { _id: id });
   }
 
+  public async update(id: string, updateFields): Promise<IInstitution> {
+    return this.institutionRepository.update<IInstitution>(Institution, id, updateFields);
+  }
+
 }

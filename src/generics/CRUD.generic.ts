@@ -8,6 +8,14 @@ import { NotFoundError } from "../errors/NotFoundError";
 @injectable()
 export class CRUD {
 
+  private _isObjectIdValid(_id: string, modelName: string): boolean | Error {
+    if (!_id.match(/^[0-9a-fA-F]{24}$/)) {
+      throw new InternalServerError(`Invalid id for ${modelName}.`);
+    }
+
+    return true;
+  }
+
   public async create<T extends Document>(Model: Model<T>, props: Object): Promise<T> {
 
     try {
@@ -34,9 +42,7 @@ export class CRUD {
     try {
 
       if (filters._id) {
-        if (!filters._id.match(/^[0-9a-fA-F]{24}$/)) {
-          throw new InternalServerError(`Invalid id for ${Model.modelName}.`);
-        }
+        this._isObjectIdValid(filters._id, Model.modelName);
       }
 
 
@@ -52,8 +58,34 @@ export class CRUD {
     } catch (error) {
       console.error(error);
 
-      throw new InternalServerError(`Error: ${error.message}`);
-
+      throw error;
     }
+  }
+
+  public async update<T extends Document>(Model: Model<T>, id, updateFields): Promise<T> {
+
+    this._isObjectIdValid(id, Model.modelName);
+
+    try {
+      const model = await Model.findById(id);
+
+      if (!model) {
+        throw new NotFoundError(`${Model.modelName} not found.`);
+      }
+
+      for (const [key, value] of Object.entries(updateFields)) {
+        model[key] = value;
+      }
+
+      await model.save();
+
+      return model;
+
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+
+
   }
 }
