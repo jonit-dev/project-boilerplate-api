@@ -1,9 +1,11 @@
 import { injectable } from "inversify";
-import { Document, Model } from "mongoose";
+import { Document, Model, model } from "mongoose";
 
 import { ConflictError } from "../errors/ConflictError";
 import { InternalServerError } from "../errors/InternalServerError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { TS } from "../libs/translation.helper";
+
 
 @injectable()
 export class CRUD {
@@ -30,10 +32,10 @@ export class CRUD {
       console.error(error);
 
       if (error.message.includes("duplicate key")) {
-        throw new ConflictError(`Error: ${Model.modelName} already exists!`);
+        throw new ConflictError(TS.translate("validation", "alreadyExists", { field: Model.modelName }));
       }
 
-      throw new InternalServerError(`Error while trying to create a new ${Model.modelName}: ${error.message}`);
+      throw new InternalServerError(`${TS.translate("validation", "creationError", { field: Model.modelName })} ${error.message}`);
     }
   }
 
@@ -51,7 +53,7 @@ export class CRUD {
       );
 
       if (!record) {
-        throw new NotFoundError(`${Model.modelName} not found.`);
+        throw new NotFoundError(TS.translate("validation", "notFound", { field: Model.modelName }));
       }
 
       return record;
@@ -70,7 +72,7 @@ export class CRUD {
       const model = await Model.findById(id);
 
       if (!model) {
-        throw new NotFoundError(`${Model.modelName} not found.`);
+        throw new NotFoundError(TS.translate("validation", "notFound", { field: Model.modelName }));
       }
 
       for (const [key, value] of Object.entries(updateFields)) {
@@ -97,7 +99,7 @@ export class CRUD {
       });
 
       if (!model) {
-        throw new NotFoundError(`${Model.modelName} not found.`);
+        throw new NotFoundError(TS.translate("validation", "notFound", { field: Model.modelName }));
       }
     } catch (error) {
       console.error(error);
