@@ -21,7 +21,7 @@ export class InstitutionService {
   }
 
   public async update(id: string, updateFields): Promise<IInstitution> {
-    return this.institutionRepository.update<IInstitution>(Institution, id, updateFields);
+    return this.institutionRepository.update<IInstitution>(Institution, id, updateFields, ["supervisor"]);
   }
 
   public async delete(id: string): Promise<void> {

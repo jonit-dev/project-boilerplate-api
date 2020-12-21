@@ -77,7 +77,7 @@ export class CRUD {
     }
   }
 
-  public async update<T extends Document>(Model: Model<T>, id, updateFields): Promise<T> {
+  public async update<T extends Document>(Model: Model<T>, id, updateFields, populateKeys?: string[]): Promise<T> {
 
     this._isObjectIdValid(id, Model.modelName);
 
@@ -93,6 +93,12 @@ export class CRUD {
       }
 
       await model.save();
+
+      if (populateKeys) {
+        for (const key of populateKeys) {
+          await model.populate(key).execPopulate();
+        }
+      }
 
       return model;
 
