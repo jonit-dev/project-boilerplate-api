@@ -13,11 +13,11 @@ export class InstitutionService {
   ) { }
 
   public async create(data): Promise<IInstitution> {
-    return this.institutionRepository.create<IInstitution>(Institution, data);
+    return this.institutionRepository.create<IInstitution>(Institution, data, ["supervisor"]);
   }
 
   public async read(id: string): Promise<IInstitution> {
-    return this.institutionRepository.read<IInstitution>(Institution, { _id: id });
+    return this.institutionRepository.read<IInstitution>(Institution, { _id: id }, ["supervisor"]);
   }
 
   public async update(id: string, updateFields): Promise<IInstitution> {

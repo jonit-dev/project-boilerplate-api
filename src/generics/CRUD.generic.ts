@@ -18,7 +18,7 @@ export class CRUD {
     return true;
   }
 
-  public async create<T extends Document>(Model: Model<T>, props: Object): Promise<T> {
+  public async create<T extends Document>(Model: Model<T>, props: Object, populateKeys?: string[]): Promise<T> {
 
     try {
       const newRecord = new Model({
@@ -26,6 +26,13 @@ export class CRUD {
       });
 
       await newRecord.save();
+
+      if (populateKeys) {
+
+        for (const key of populateKeys) {
+          await newRecord.populate(key).execPopulate();
+        }
+      }
 
       return newRecord;
     } catch (error) {
@@ -39,7 +46,7 @@ export class CRUD {
     }
   }
 
-  public async read<T extends Document>(Model: Model<T>, filters): Promise<T> {
+  public async read<T extends Document>(Model: Model<T>, filters, populateKeys?: string[]): Promise<T> {
 
     try {
 
@@ -49,8 +56,14 @@ export class CRUD {
 
 
       // @ts-ignore
-      const record = await Model.findOne(filters
-      );
+      const record = await Model.findOne(filters);
+
+      if (populateKeys) {
+        for (const key of populateKeys) {
+          await record?.populate(key).execPopulate();
+        }
+      }
+
 
       if (!record) {
         throw new NotFoundError(TS.translate("validation", "notFound", { field: Model.modelName }));

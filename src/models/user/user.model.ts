@@ -57,6 +57,11 @@ userSchema.plugin(mongooseHidden, {
   },
 });
 
+
+
+
+// Hooks ========================================
+
 userSchema.pre("save", async function (next): Promise<void> {
   const user = this as IUser;
   const salt = await bcrypt.genSalt();

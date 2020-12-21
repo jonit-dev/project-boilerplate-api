@@ -9,5 +9,4 @@ export class InstitutionRepository extends CRUD {
   constructor() {
     super();
   }
-
 }

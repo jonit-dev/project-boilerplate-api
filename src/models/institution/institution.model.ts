@@ -14,7 +14,8 @@ const institutionSchema = createSchema(
       unique: true
     }),
     supervisor: Type.objectId({
-      required: true
+      required: true,
+      ref: "User"
     }),
     type: Type.string({
       required: true,
