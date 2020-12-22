@@ -1,53 +1,56 @@
 import { IsDefined, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
 
-import { translateDecorator } from "../../constants/validation.constants";
+import { tsDefaultDecorator } from "../../constants/validation.constants";
 
 export class AuthSignUpDTO {
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
-  @MaxLength(50, translateDecorator("validation", "maxLength"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  @MaxLength(50, tsDefaultDecorator("validation", "maxLength"))
   name: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
-  @MinLength(3, translateDecorator("validation", "minLength"))
-  @MaxLength(50, translateDecorator("validation", "maxLength"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  @MinLength(3, tsDefaultDecorator("validation", "minLength"))
+  @MaxLength(50, tsDefaultDecorator("validation", "maxLength"))
   email: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
-  @MinLength(3, translateDecorator("validation", "minLength"))
-  @MaxLength(50, translateDecorator("validation", "maxLength"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  @MinLength(3, tsDefaultDecorator("validation", "minLength"))
+  @MaxLength(50, tsDefaultDecorator("validation", "maxLength"))
   password: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
-  @MinLength(3, translateDecorator("validation", "minLength"))
-  @MaxLength(500, translateDecorator("validation", "maxLength"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  @MinLength(3, tsDefaultDecorator("validation", "minLength"))
+  @MaxLength(500, tsDefaultDecorator("validation", "maxLength"))
   address: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
-  @MinLength(3, translateDecorator("validation", "minLength"))
-  @MaxLength(500, translateDecorator("validation", "maxLength"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  @MinLength(3, tsDefaultDecorator("validation", "minLength"))
+  @MaxLength(500, tsDefaultDecorator("validation", "maxLength"))
   phone: string;
 
 }
 
 export class AuthLoginDTO {
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
   email: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
   password: string;
 }
 
 export class AuthRefreshTokenDTO {
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
   refreshToken: string;
 }

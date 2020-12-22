@@ -2,7 +2,6 @@ import { HttpStatus, IValidationError } from "@little-sentinel/shared";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";
-import _ from "lodash";
 
 import { BadRequestError } from "../errors/BadRequestError";
 
@@ -24,7 +23,7 @@ export const DTOValidatorMiddleware = (dtoClass: any) => {
             ).map(([key, value]) => ({ key, value }));
 
             for (const item of constraintsKv) {
-              errorList.push(_.capitalize(item.value));
+              errorList.push(item.value);
             }
           }
 

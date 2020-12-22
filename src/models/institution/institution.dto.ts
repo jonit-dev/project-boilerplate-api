@@ -1,54 +1,55 @@
 import { IsDefined, IsEnum, IsNotEmpty, IsString } from "class-validator";
 
-import { translateDecorator } from "../../constants/validation.constants";
+import { tsDefaultDecorator, tsEnumDecorator } from "../../constants/validation.constants";
 import { InstitutionTypes } from "./institution.types";
 
 export class InstitutionCreateDTO {
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   name: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   email: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   supervisor: string;
 
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsEnum(InstitutionTypes)
+
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsEnum(InstitutionTypes, tsEnumDecorator("validation", "isEnum", InstitutionTypes))
   type: InstitutionTypes;
 
-  @IsString(translateDecorator("validation", "isString"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   address: string;
 
-  @IsString(translateDecorator("validation", "isString"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   phone: string;
 }
 
 
 export class InstitutionUpdateDTO {
 
-  @IsString(translateDecorator("validation", "isString"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   name: string;
 
-  @IsString(translateDecorator("validation", "isString"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   email: string;
 
-  @IsString(translateDecorator("validation", "isString"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   supervisor: string;
 
   @IsEnum(InstitutionTypes)
   type: InstitutionTypes;
 
-  @IsString(translateDecorator("validation", "isString"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   address: string;
 
-  @IsString(translateDecorator("validation", "isString"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   phone: string;
 }

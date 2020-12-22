@@ -1,12 +1,12 @@
 import { IsDefined, IsNotEmpty, IsString } from "class-validator";
 
-import { translateDecorator } from "../../constants/validation.constants";
+import { tsDefaultDecorator } from "../../constants/validation.constants";
 
 
 
 export class UserForgotPasswordDTO {
-  @IsDefined(translateDecorator("validation", "isNotEmpty"))
-  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
-  @IsString(translateDecorator("validation", "isString"))
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   email: string;
 }
