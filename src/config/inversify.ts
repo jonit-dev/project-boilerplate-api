@@ -6,6 +6,9 @@ import { GoogleOAuthHelper } from "../libs/googleOauth.helper";
 import { AuthController } from "../models/auth/auth.controller";
 import { AuthRepository } from "../models/auth/auth.repository";
 import { AuthService } from "../models/auth/auth.service";
+import { EnvironmentController } from "../models/environment/environment.controller";
+import { EnvironmentRepository } from "../models/environment/environment.repository";
+import { EnvironmentService } from "../models/environment/environment.service";
 import { InstitutionController } from "../models/institution/institution.controller";
 import { InstitutionRepository } from "../models/institution/institution.repository";
 import { InstitutionService } from "../models/institution/institution.service";
@@ -27,5 +30,8 @@ container.bind<UserController>(UserController).toSelf();
 container.bind<InstitutionController>(InstitutionController).toSelf();
 container.bind<InstitutionService>(InstitutionService).toSelf();
 container.bind<InstitutionRepository>(InstitutionRepository).toSelf();
+container.bind<EnvironmentController>(EnvironmentController).toSelf();
+container.bind<EnvironmentService>(EnvironmentService).toSelf();
+container.bind<EnvironmentRepository>(EnvironmentRepository).toSelf();
 
 export { container };

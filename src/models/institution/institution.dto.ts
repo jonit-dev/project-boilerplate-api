@@ -1,7 +1,7 @@
+import { InstitutionTypes } from "@little-sentinel/shared";
 import { IsDefined, IsEnum, IsNotEmpty, IsString } from "class-validator";
 
 import { tsDefaultDecorator, tsEnumDecorator } from "../../constants/validation.constants";
-import { InstitutionTypes } from "./institution.types";
 
 export class InstitutionCreateDTO {
   @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))

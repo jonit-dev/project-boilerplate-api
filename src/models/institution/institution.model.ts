@@ -1,7 +1,7 @@
+import { InstitutionTypes } from "@little-sentinel/shared";
 import { createSchema, ExtractDoc, Type, typedModel } from "ts-mongoose";
 
 import { TypeHelper } from "../../libs/type.helper";
-import { InstitutionTypes } from "./institution.types";
 
 const institutionSchema = createSchema(
   {
