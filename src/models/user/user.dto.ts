@@ -1,12 +1,12 @@
-import { IsDefined, IsNotEmpty, IsString, ValidationArguments } from "class-validator";
+import { IsDefined, IsNotEmpty, IsString } from "class-validator";
 
-import { TS } from "../../libs/translation.helper";
+import { translateDecorator } from "../../constants/validation.constants";
 
 
 
 export class UserForgotPasswordDTO {
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
   email: string;
 }

@@ -1,54 +1,53 @@
-import { IsDefined, IsNotEmpty, IsString, MaxLength, MinLength, ValidationArguments } from "class-validator";
+import { IsDefined, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
 
-import { TS } from "../../libs/translation.helper";
+import { translateDecorator } from "../../constants/validation.constants";
 
 export class AuthSignUpDTO {
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
-  @MinLength(4, { message: ({ property }: ValidationArguments) => TS.translate("validation", "minLength", { field: property }) })
-  @MaxLength(50, { message: ({ property }: ValidationArguments) => TS.translate("validation", "maxLength", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
+  @MaxLength(50, translateDecorator("validation", "maxLength"))
   name: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
-  @MinLength(8, { message: ({ property }: ValidationArguments) => TS.translate("validation", "minLength", { field: property }) })
-  @MaxLength(50, { message: ({ property }: ValidationArguments) => TS.translate("validation", "maxLength", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
+  @MinLength(3, translateDecorator("validation", "minLength"))
+  @MaxLength(50, translateDecorator("validation", "maxLength"))
   email: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
-  @MinLength(3, { message: ({ property }: ValidationArguments) => TS.translate("validation", "minLength", { field: property }) })
-  @MaxLength(50, { message: ({ property }: ValidationArguments) => TS.translate("validation", "maxLength", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
+  @MinLength(3, translateDecorator("validation", "minLength"))
+  @MaxLength(50, translateDecorator("validation", "maxLength"))
   password: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
-  @MinLength(3, { message: ({ property }: ValidationArguments) => TS.translate("validation", "minLength", { field: property }) })
-  @MaxLength(500, { message: ({ property }: ValidationArguments) => TS.translate("validation", "maxLength", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
+  @MinLength(3, translateDecorator("validation", "minLength"))
+  @MaxLength(500, translateDecorator("validation", "maxLength"))
   address: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
-  @MinLength(3, { message: ({ property }: ValidationArguments) => TS.translate("validation", "minLength", { field: property }) })
-  @MaxLength(500, { message: ({ property }: ValidationArguments) => TS.translate("validation", "maxLength", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
+  @MinLength(3, translateDecorator("validation", "minLength"))
+  @MaxLength(500, translateDecorator("validation", "maxLength"))
   phone: string;
 
 }
 
 export class AuthLoginDTO {
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
   email: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
   password: string;
 }
 
 export class AuthRefreshTokenDTO {
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
   refreshToken: string;
 }

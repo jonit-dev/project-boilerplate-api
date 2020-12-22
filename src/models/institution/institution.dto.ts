@@ -1,57 +1,54 @@
-import { IsDefined, IsEnum, IsNotEmpty, IsString, ValidationArguments } from "class-validator";
+import { IsDefined, IsEnum, IsNotEmpty, IsString } from "class-validator";
 
-import { TS } from "../../libs/translation.helper";
+import { translateDecorator } from "../../constants/validation.constants";
 import { InstitutionTypes } from "./institution.types";
 
-
-
-
 export class InstitutionCreateDTO {
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
   name: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
   email: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
+  @IsString(translateDecorator("validation", "isString"))
   supervisor: string;
 
-  @IsDefined({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
-  @IsNotEmpty({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isNotEmpty", { field: property }) })
+  @IsDefined(translateDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(translateDecorator("validation", "isNotEmpty"))
   @IsEnum(InstitutionTypes)
   type: InstitutionTypes;
 
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsString(translateDecorator("validation", "isString"))
   address: string;
 
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsString(translateDecorator("validation", "isString"))
   phone: string;
 }
 
 
 export class InstitutionUpdateDTO {
 
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsString(translateDecorator("validation", "isString"))
   name: string;
 
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsString(translateDecorator("validation", "isString"))
   email: string;
 
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsString(translateDecorator("validation", "isString"))
   supervisor: string;
 
   @IsEnum(InstitutionTypes)
   type: InstitutionTypes;
 
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsString(translateDecorator("validation", "isString"))
   address: string;
 
-  @IsString({ message: ({ property }: ValidationArguments) => TS.translate("validation", "isString", { field: property }) })
+  @IsString(translateDecorator("validation", "isString"))
   phone: string;
 }
