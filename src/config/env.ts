@@ -22,7 +22,6 @@ export const appEnv = {
     genericHash: process.env.GENERIC_ENCRYPTION_HASH
   },
   authentication: {
-    PASSPORT_DEFAULT_STRATEGY: process.env.PASSPORT_DEFAULT_STRATEGY,
     JWT_SECRET: process.env.JWT_SECRET,
     REFRESH_TOKEN_SECRET: process.env.JWT_REFRESH_TOKEN_SECRET,
     googleOAuth: {
