@@ -17,7 +17,7 @@ const userSchema = createSchema(
     name: Type.string(),
     role: Type.string({
       required: true,
-      default: UserTypes.Guardian,
+      default: UserTypes.Regular,
       enum: TypeHelper.enumToStringArray(UserTypes),
     }),
     authFlow: Type.string({

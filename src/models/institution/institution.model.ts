@@ -1,7 +1,5 @@
-import { InstitutionTypes } from "@little-sentinel/shared";
 import { createSchema, ExtractDoc, Type, typedModel } from "ts-mongoose";
 
-import { TypeHelper } from "../../libs/type.helper";
 
 const institutionSchema = createSchema(
   {
@@ -17,10 +15,10 @@ const institutionSchema = createSchema(
       required: true,
       ref: "User"
     }),
-    type: Type.string({
-      required: true,
-      enum: TypeHelper.enumToStringArray(InstitutionTypes)
-    }),
+    // type: Type.string({
+    //   required: true,
+    //   enum: TypeHelper.enumToStringArray(InstitutionTypes)
+    // }),
     address: Type.string(),
     phone: Type.string()
   },
