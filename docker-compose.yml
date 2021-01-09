@@ -1,7 +1,7 @@
 version: "3"
 services:
-  ls-api:
-    container_name: ls-api
+  pb-api:
+    container_name: pb-api
     restart: always
     build: .
     env_file: .env
@@ -13,13 +13,13 @@ services:
     environment:
       FORCE_COLOR: "true"
     links:
-      - ls-db
+      - pb-db
     depends_on:
-      - ls-db
+      - pb-db
     networks:
       - be-network
-  ls-db:
-    container_name: ls-db
+  pb-db:
+    container_name: pb-db
     image: mongo
     volumes:
       - ./docker_scripts/:/docker-entrypoint-initdb.d
