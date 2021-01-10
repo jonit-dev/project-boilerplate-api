@@ -22,7 +22,7 @@
 
 ## Starting the containers
 
-- You must have a .env file in your **pb-api, pb-web and pb-mobile** folders to start this project. Please, reach me out on Slack or joaopaulofurtado@live.com for getting a proper copy of your .env file. **Without it, your project won't run properly.**
+- You must have a .env file in your **pb-api, pb-web and pb-mobile** folders to start this project. Please, reach me out on Slack or joaopaulofurtado@live.com for getting a proper copy of your .envs files. **Without it, your project won't run properly.**
 
 1. Run:
 
