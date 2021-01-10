@@ -1,4 +1,4 @@
-import { HttpStatus, IGoogleOAuthUrlResponse, IGoogleOAuthUserInfoResponse } from "@little-sentinel/shared";
+import { HttpStatus, IGoogleOAuthUrlResponse, IGoogleOAuthUserInfoResponse } from "@project-boilerplate/shared";
 import { Request, Response } from "express";
 import { controller, httpGet, httpPost, interfaces, request, requestBody, response } from "inversify-express-utils";
 

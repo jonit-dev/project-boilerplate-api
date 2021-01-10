@@ -1,4 +1,4 @@
-import { TranslationTypes } from "@little-sentinel/shared";
+import { TranslationTypes } from "@project-boilerplate/shared";
 
 import { appEnv } from "../config/env";
 
@@ -14,7 +14,7 @@ export class TS {
   ): string {
     const envLang = appEnv.general.LANGUAGE!;
 
-    const jsonFile = require(`../../node_modules/@little-sentinel/shared/src/translations/${context}.lang.json`);
+    const jsonFile = require(`../../node_modules/@project-boilerplate/shared/src/translations/${context}.lang.json`);
 
     let translatedString: string;
 

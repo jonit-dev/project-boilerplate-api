@@ -39,11 +39,6 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@little-sentinel/shared@^1.0.87":
-  version "1.0.87"
-  resolved "https://registry.yarnpkg.com/@little-sentinel/shared/-/shared-1.0.87.tgz#5650ff40c745891b5e542d6ef8f2edc47b0e5273"
-  integrity sha512-yYsjYxOkGBNS4frOuaA0e2D5LVvFEUf22/IMknWsRta5WrfUCfIJY0/ZS26hI/FHbzOybbYC0WsLuc/ra0pGVA==
-
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz#3a582bdb53804c6ba6d146579c46e52130cf4a3b"
@@ -64,6 +59,11 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
+
+"@project-boilerplate/shared@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@project-boilerplate/shared/-/shared-1.0.2.tgz#010f6b186eba944fad319c6723785af5aa6eeeca"
+  integrity sha512-aIEmtgpenTdRlBRWOEdmdMQ05NBrURzt2GFQgKairQNaohFd41MPzwVWQjiFubqswVkAcnr8pJEGX/wI4jpucQ==
 
 "@sendgrid/client@^7.4.0":
   version "7.4.0"

@@ -1,4 +1,4 @@
-import { IGoogleOAuthUserInfoResponse, UserAuthFlow } from "@little-sentinel/shared";
+import { IGoogleOAuthUserInfoResponse, UserAuthFlow } from "@project-boilerplate/shared";
 import { injectable } from "inversify";
 import jwt from "jsonwebtoken";
 

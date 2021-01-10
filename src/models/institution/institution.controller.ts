@@ -1,4 +1,4 @@
-import { HttpStatus } from "@little-sentinel/shared/dist";
+import { HttpStatus } from "@project-boilerplate/shared/dist";
 import {
   controller,
   httpDelete,

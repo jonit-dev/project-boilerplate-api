@@ -1,4 +1,4 @@
-import { TranslationTypes } from "@little-sentinel/shared/dist";
+import { TranslationTypes } from "@project-boilerplate/shared/dist";
 import { ValidationArguments } from "class-validator";
 import _ from "lodash";
 

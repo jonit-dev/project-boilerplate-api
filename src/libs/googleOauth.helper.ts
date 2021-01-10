@@ -1,4 +1,4 @@
-import { IGoogleConfig, IGoogleOAuthTokenPayload } from "@little-sentinel/shared";
+import { IGoogleConfig, IGoogleOAuthTokenPayload } from "@project-boilerplate/shared";
 import axios from "axios";
 import { google } from "googleapis";
 import { injectable } from "inversify";

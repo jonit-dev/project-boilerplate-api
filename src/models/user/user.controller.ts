@@ -1,4 +1,4 @@
-import { HttpStatus } from "@little-sentinel/shared/dist";
+import { HttpStatus } from "@project-boilerplate/shared/dist";
 import { Request, Response } from "express";
 import fs from "fs";
 import { controller, httpGet, httpPost, interfaces, JsonContent, queryParam, requestBody } from "inversify-express-utils";

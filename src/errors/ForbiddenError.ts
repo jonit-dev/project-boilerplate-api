@@ -1,4 +1,4 @@
-import { HttpStatus } from "@little-sentinel/shared";
+import { HttpStatus } from "@project-boilerplate/shared";
 
 import { ApplicationError } from "./ApplicationError";
 

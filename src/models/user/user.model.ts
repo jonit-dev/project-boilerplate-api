@@ -1,4 +1,4 @@
-import { UserAuthFlow, UserTypes } from "@little-sentinel/shared";
+import { UserAuthFlow, UserTypes } from "@project-boilerplate/shared";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createSchema, ExtractDoc, Type, typedModel } from "ts-mongoose";

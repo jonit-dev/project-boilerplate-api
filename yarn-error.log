@@ -44,7 +44,7 @@ npm manifest:
       "mongoose": "^5.10.13"
     },
     "devDependencies": {
-      "@little-sentinel/shared": "^1.0.70",
+      "@project-boilerplate/shared": "^1.0.70",
       "@types/axios": "^0.14.0",
       "@types/bcrypt": "^3.0.0",
       "@types/chalk": "^2.2.0",
@@ -128,9 +128,9 @@ Lockfile:
       minimatch "^3.0.4"
       strip-json-comments "^3.1.1"
   
-  "@little-sentinel/shared@^1.0.70":
+  "@project-boilerplate/shared@^1.0.70":
     version "1.0.70"
-    resolved "https://registry.yarnpkg.com/@little-sentinel/shared/-/shared-1.0.70.tgz#8eb9d7cb6c0567b12d026cc8be0cf02d22c078a4"
+    resolved "https://registry.yarnpkg.com/@project-boilerplate/shared/-/shared-1.0.70.tgz#8eb9d7cb6c0567b12d026cc8be0cf02d22c078a4"
     integrity sha512-arm4/vjJ7mhKD8UiJTZCHK0WBB8kyDGlfbvpknQZWW++jdzwyDwoqlZNYzHAAE3yjo/zxpSUXKLlbrsc/gXw/w==
   
   "@nodelib/fs.scandir@2.1.3":

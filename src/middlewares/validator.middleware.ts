@@ -1,4 +1,4 @@
-import { HttpStatus, IValidationError } from "@little-sentinel/shared";
+import { HttpStatus, IValidationError } from "@project-boilerplate/shared";
 import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { NextFunction, Request, Response } from "express";

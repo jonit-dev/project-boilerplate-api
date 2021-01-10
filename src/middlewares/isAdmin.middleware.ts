@@ -1,4 +1,4 @@
-import { UserTypes } from "@little-sentinel/shared";
+import { UserTypes } from "@project-boilerplate/shared";
 
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { TS } from "../libs/translation.helper";

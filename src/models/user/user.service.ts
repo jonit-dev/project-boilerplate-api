@@ -1,4 +1,4 @@
-import { UserAuthFlow } from "@little-sentinel/shared/dist";
+import { UserAuthFlow } from "@project-boilerplate/shared/dist";
 import randomString from "crypto-random-string";
 import { injectable } from "inversify";
 
