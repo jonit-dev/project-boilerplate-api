@@ -1,5 +1,18 @@
 # Project Boilerplate
 
+# Folder structure
+
+- Create a folder structure like this (Just create a root folder manually, cd into it and start cloning the projects from Github):
+
+  > /ProjectBoilerplate
+  >
+  > > /pb-api
+  > > /pb-web
+  > > /pb-mobile
+
+- Note that "pb" stands for project boilerplate.
+- You can find the repository links in our Jira board.
+
 ## Pre-requisites
 
 1. Make sure you have installed in your machine:
@@ -17,7 +30,7 @@
 docker-compose up
 ```
 
-## Accessing your database on Robo3T
+## Accessing our database on Robo3T
 
 - Make sure that before accessing your database, your docker db container is up and running.
 - Please install the free edition of Robo3T
@@ -35,5 +48,5 @@ docker-compose up
 
 ## Accessing API Routes
 
-- Download postman
+- Download Postman
 - Ask project admin for Workspace invitation.
