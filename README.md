@@ -4,11 +4,11 @@
 
 - Create a folder structure like this (Just create a root folder manually, cd into it and start cloning the projects from Github):
 
-  > /ProjectBoilerplate
-  >
-  > > /pb-api
-  > > /pb-web
-  > > /pb-mobile
+  /ProjectBoilerplate
+
+  - /pb-api
+  - /pb-web
+  - /pb-mobile
 
 - Note that "pb" stands for project boilerplate.
 - You can find the repository links in our Jira board.
