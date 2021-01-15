@@ -7,7 +7,7 @@
     "tsc": "tsc",
     "dev": "yarn install && ts-node-dev --transpile-only --respawn -r dotenv/config ./src/index.ts",
     "build": "tsc -p .",
-    "update:shared-deps": "yarn upgrade --scope @little-sentinel --latest",
+    "update:shared-deps": "yarn upgrade --scope @project-boilerplate --latest",
     "lint": "eslint --fix ./src/**/*.ts",
     "prod": "tsc && node -r dotenv/config ./dist/index.js"
   },
