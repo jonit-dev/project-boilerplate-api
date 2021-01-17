@@ -29,7 +29,12 @@ export class AuthService {
     *############################################################## */
 
   public async signUp(authSignUpDTO: AuthSignUpDTO): Promise<IUser> {
-    const { email } = authSignUpDTO;
+    const { email, password, passwordConfirmation } = authSignUpDTO;
+
+    // check if provided password and confirmation passoword are the same!
+    if (password !== passwordConfirmation) {
+      throw new ConflictError(TS.translate("auth", "passwordDoesNotMatchConfirmation"));
+    }
 
     // first, check if an user with the same e-mail already exists
     if (await User.checkIfExists(email)) {
@@ -162,6 +167,14 @@ export class AuthService {
     }
 
     const user = await User.findOne({ email: googleUserInfo.email });
+
+    if (user && user.authFlow === UserAuthFlow.Basic) { // on this case it's google only oauth method...
+      throw new UnauthorizedError(TS.translate("auth", "accountAuthFlowMismatch", {
+        authFlowProvider: "Google"
+      }));
+    }
+
+
 
     if (!user) {
       //! create a new user and generate accessToken
