@@ -26,6 +26,11 @@ export class AuthSignUpDTO {
   @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
   @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
   @IsString(tsDefaultDecorator("validation", "isString"))
+  passwordConfirmation: string;
+
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
   @MinLength(3, tsDefaultDecorator("validation", "minLength"))
   @MaxLength(500, tsDefaultDecorator("validation", "maxLength"))
   address: string;
