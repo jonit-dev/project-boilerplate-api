@@ -168,14 +168,6 @@ export class AuthService {
 
     const user = await User.findOne({ email: googleUserInfo.email });
 
-    if (user && user.authFlow === UserAuthFlow.Basic) { // on this case it's google only oauth method...
-      throw new UnauthorizedError(TS.translate("auth", "accountAuthFlowMismatch", {
-        authFlowProvider: "Google"
-      }));
-    }
-
-
-
     if (!user) {
       //! create a new user and generate accessToken
 

@@ -1,4 +1,9 @@
-import { HttpStatus, IGoogleOAuthUrlResponse, IGoogleOAuthUserInfoResponse } from "@project-boilerplate/shared";
+import {
+  HttpStatus,
+  IGoogleOAuthUrlResponse,
+  IGoogleOAuthUserInfoResponse,
+  UserAuthFlow,
+} from "@project-boilerplate/shared";
 import { Request, Response } from "express";
 import { controller, httpGet, httpPost, interfaces, request, requestBody, response } from "inversify-express-utils";
 
@@ -8,7 +13,7 @@ import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
 import { IRequestCustom } from "../../types/express.types";
-import { IUser } from "../user/user.model";
+import { IUser, User } from "../user/user.model";
 import { AuthLoginDTO, AuthRefreshTokenDTO, AuthSignUpDTO } from "./auth.dto";
 import { AuthService } from "./auth.service";
 import { IAuthRefreshTokenResponse, IAuthResponse } from "./auth.types";
@@ -44,6 +49,13 @@ export class AuthController implements interfaces.Controller {
     const googleUserInfo: IGoogleOAuthUserInfoResponse = await this.authService.getGoogleUser(
       String(code)
     );
+
+    // Check if this user was registered using a Basic auth flow (instead of Google OAuth)
+    const user = await User.findOne({ email: googleUserInfo.email });
+
+    if (user && user.authFlow === UserAuthFlow.Basic) { // on this case it's google only oauth method...
+      return res.redirect(`${appEnv.general.APP_URL}/auth?errorType=auth&&errorMessage=accountAuthFlowMismatch`);
+    }
 
     const {
       accessToken,
