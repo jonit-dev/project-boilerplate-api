@@ -166,6 +166,13 @@ export class AuthService {
       user.password = newPassword;
       await user.save();
 
+      // Send confirmation to user
+      await TransactionalEmail.send(user.email, TS.translate("email", "passwordChangeTitle"), "notification", {
+        notificationGreetings: TS.translate("email", "genericConfirmationTitle"),
+        notificationMessage: TS.translate("email", "passwordChangeMessage", { adminEmail: appEnv.general.ADMIN_EMAIL! }),
+        notificationEndPhrase: TS.translate("email", "genericEndPhrase")
+      });
+
 
     } else {
       throw new BadRequestError(TS.translate("auth", "changePasswordIncorrectCurrentPassword"));
@@ -198,7 +205,7 @@ export class AuthService {
     // send e-mail to user with the new password content
     await TransactionalEmail.send(user.email, TS.translate("email", "passwordRecoveryGreetings"), "notification", {
       notificationGreetings: TS.translate("email", "passwordRecoveryGreetings"),
-      notificationMessage: TS.translate("email", "passwordRecoveryMessage", { randomPassword }),
+      notificationMessage: TS.translate("email", "passwordRecoveryMessage", { randomPassword, adminEmail: appEnv.general.ADMIN_EMAIL! }),
       notificationEndPhrase: TS.translate("email", "passwordRecoveryEndPhrase")
     });
 
