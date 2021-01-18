@@ -205,7 +205,7 @@ export class AuthService {
     // send e-mail to user with the new password content
     await TransactionalEmail.send(user.email, TS.translate("email", "passwordRecoveryGreetings"), "notification", {
       notificationGreetings: TS.translate("email", "passwordRecoveryGreetings"),
-      notificationMessage: TS.translate("email", "passwordRecoveryMessage", { randomPassword, adminEmail: appEnv.general.ADMIN_EMAIL! }),
+      notificationMessage: TS.translate("email", "passwordRecoveryMessage", { randomPassword }),
       notificationEndPhrase: TS.translate("email", "passwordRecoveryEndPhrase")
     });
 
