@@ -142,7 +142,7 @@ export class AuthService {
     return false;
   }
 
-  public async changePassword(user: IUser, authChangePasswordDTO: AuthChangePasswordDTO): Promise<boolean> {
+  public async changePassword(user: IUser, authChangePasswordDTO: AuthChangePasswordDTO): Promise<void> {
 
     console.log(user.email);
 
@@ -166,18 +166,11 @@ export class AuthService {
       user.password = newPassword;
       await user.save();
 
+
     } else {
       throw new BadRequestError(TS.translate("auth", "changePasswordIncorrectCurrentPassword"));
     }
 
-
-
-
-
-
-
-
-    return false;
   }
 
   public async forgotPassword(email: string): Promise<boolean> {
