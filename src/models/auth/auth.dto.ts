@@ -59,3 +59,22 @@ export class AuthRefreshTokenDTO {
   @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
   refreshToken: string;
 }
+
+export class AuthForgotPasswordDTO {
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  email: string;
+}
+
+export class AuthChangePasswordDTO {
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  currentPassword: string;
+
+  @IsDefined(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsNotEmpty(tsDefaultDecorator("validation", "isNotEmpty"))
+  @IsString(tsDefaultDecorator("validation", "isString"))
+  newPassword: string;
+}

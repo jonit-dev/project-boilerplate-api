@@ -5,7 +5,16 @@ import {
   UserAuthFlow,
 } from "@project-boilerplate/shared";
 import { Request, Response } from "express";
-import { controller, httpGet, httpPost, interfaces, request, requestBody, response } from "inversify-express-utils";
+import {
+  controller,
+  httpGet,
+  httpPost,
+  interfaces,
+  JsonContent,
+  request,
+  requestBody,
+  response,
+} from "inversify-express-utils";
 
 import { appEnv } from "../../config/env";
 import { InternalServerError } from "../../errors/InternalServerError";
@@ -14,7 +23,7 @@ import { AuthMiddleware } from "../../middlewares/auth.middleware";
 import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
 import { IRequestCustom } from "../../types/express.types";
 import { IUser, User } from "../user/user.model";
-import { AuthLoginDTO, AuthRefreshTokenDTO, AuthSignUpDTO } from "./auth.dto";
+import { AuthChangePasswordDTO, AuthForgotPasswordDTO, AuthLoginDTO, AuthRefreshTokenDTO, AuthSignUpDTO } from "./auth.dto";
 import { AuthService } from "./auth.service";
 import { IAuthRefreshTokenResponse, IAuthResponse } from "./auth.types";
 
@@ -101,6 +110,28 @@ export class AuthController implements interfaces.Controller {
     this.authService.logout(user, refreshToken);
 
     return res.status(HttpStatus.OK).send();
+  }
+
+  @httpPost("/forgot-password", DTOValidatorMiddleware(AuthForgotPasswordDTO))
+  private async forgotPassword(@requestBody() body, req: Request, res: Response): Promise<Response<JsonContent>> {
+
+    const { email } = body;
+
+    await this.authService.forgotPassword(email);
+
+    return res.status(HttpStatus.OK).send();
+
+  }
+
+  @httpPost("/change-password", DTOValidatorMiddleware(AuthChangePasswordDTO), AuthMiddleware)
+  private async changePassword(@requestBody() authChangePasswordDTO, req: IRequestCustom, res: Response): Promise<Response<JsonContent>> {
+
+    const { user } = req;
+
+    await this.authService.changePassword(user!, authChangePasswordDTO);
+
+    return res.status(HttpStatus.OK).send();
+
   }
 
   @httpPost("/refresh-token", DTOValidatorMiddleware(AuthRefreshTokenDTO), AuthMiddleware)

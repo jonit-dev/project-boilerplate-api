@@ -60,10 +60,10 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
-"@project-boilerplate/shared@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@project-boilerplate/shared/-/shared-1.0.6.tgz#48ab76d5df0f75b8c8eee8437c0e1ecf0cd46016"
-  integrity sha512-fIGttKBERUc9FSWeEMSUgIVk9Kv57EP+BOTZ2qjE2WYZQnxd6W9u+e0Sb74KWEVsTKMJ9CiL7WihTW5SD4wqyw==
+"@project-boilerplate/shared@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@project-boilerplate/shared/-/shared-1.0.8.tgz#78ef20711cbefbd6039d90488c97495b17957d6e"
+  integrity sha512-pPXTGnEEqzHuEZgo3VuxoxHB7CRuUX0DrfqrTI62nDnsF4sFEj4cZ0qAuKZFDI1QWfcuknANRU5AdKJK83o0/w==
 
 "@sendgrid/client@^7.4.0":
   version "7.4.0"

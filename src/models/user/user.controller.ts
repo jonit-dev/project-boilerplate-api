@@ -1,16 +1,13 @@
-import { HttpStatus } from "@project-boilerplate/shared/dist";
 import { Request, Response } from "express";
 import fs from "fs";
-import { controller, httpGet, httpPost, interfaces, JsonContent, queryParam, requestBody } from "inversify-express-utils";
+import { controller, httpGet, interfaces, queryParam } from "inversify-express-utils";
 
 import { staticPath } from "../../constants/path.constants";
 import { BadRequestError } from "../../errors/BadRequestError";
 import { EncryptionHelper } from "../../libs/encryption.helper";
 import { TS } from "../../libs/translation.helper";
 import { AuthMiddleware } from "../../middlewares/auth.middleware";
-import { DTOValidatorMiddleware } from "../../middlewares/validator.middleware";
 import { IRequestCustom } from "../../types/express.types";
-import { UserForgotPasswordDTO } from "./user.dto";
 import { IUser } from "./user.model";
 import { UserService } from "./user.service";
 
@@ -31,17 +28,6 @@ export class UserController implements interfaces.Controller {
     }
 
     return user;
-  }
-
-  @httpPost("/forgot-password", DTOValidatorMiddleware(UserForgotPasswordDTO))
-  private async forgotPassword(@requestBody() body, req: Request, res: Response): Promise<Response<JsonContent>> {
-
-    const { email } = body;
-
-    await this.userService.forgotPassword(email);
-
-    return res.status(HttpStatus.OK).send();
-
   }
 
   @httpGet("/unsubscribe")

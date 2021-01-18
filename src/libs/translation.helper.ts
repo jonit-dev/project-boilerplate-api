@@ -21,7 +21,7 @@ export class TS {
     try {
       translatedString = jsonFile[key][envLang];
     } catch (error) {
-      translatedString = "TRANSLATION_KEY_NOT_FOUND";
+      translatedString = `TRANSLATION_KEY_NOT_FOUND_FOR_${context}_${key}`;
     }
 
     if (interpolationObjs) {

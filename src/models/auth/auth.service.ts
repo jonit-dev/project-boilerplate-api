@@ -1,4 +1,6 @@
 import { IGoogleOAuthUserInfoResponse, UserAuthFlow } from "@project-boilerplate/shared";
+import bcrypt from "bcrypt";
+import randomString from "crypto-random-string";
 import { injectable } from "inversify";
 import jwt from "jsonwebtoken";
 
@@ -13,7 +15,7 @@ import { UnauthorizedError } from "../../errors/UnauthorizedError";
 import { GoogleOAuthHelper } from "../../libs/googleOauth.helper";
 import { TS } from "../../libs/translation.helper";
 import { IUser, User } from "../user/user.model";
-import { AuthLoginDTO, AuthSignUpDTO } from "./auth.dto";
+import { AuthChangePasswordDTO, AuthLoginDTO, AuthSignUpDTO } from "./auth.dto";
 import { AuthRepository } from "./auth.repository";
 import { IAuthResponse } from "./auth.types";
 
@@ -138,6 +140,84 @@ export class AuthService {
       }
     );
     return false;
+  }
+
+  public async changePassword(user: IUser, authChangePasswordDTO: AuthChangePasswordDTO): Promise<boolean> {
+
+    console.log(user.email);
+
+    const { currentPassword, newPassword } = authChangePasswordDTO;
+
+    // check if passwords are the same
+
+    if (currentPassword === newPassword) {
+      throw new BadRequestError(TS.translate("auth", "changePasswordSamePasswords"));
+    }
+
+
+    // check if current password is correct
+
+    const currentPasswordHash = await bcrypt.hash(currentPassword, user.salt!);
+
+    // compare both hashes
+    if (currentPasswordHash === user.password) {
+
+      // if currentPassword is correct, just change our current password to the new one provided.
+      user.password = newPassword;
+      await user.save();
+
+    } else {
+      throw new BadRequestError(TS.translate("auth", "changePasswordIncorrectCurrentPassword"));
+    }
+
+
+
+
+
+
+
+
+    return false;
+  }
+
+  public async forgotPassword(email: string): Promise<boolean> {
+
+    // try to get user with mentioned e-mail
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      throw new NotFoundError(TS.translate("users", "userNotFound"));
+    }
+
+    if (user.authFlow !== UserAuthFlow.Basic) {
+      throw new InternalServerError(TS.translate("auth", "authModeError"));
+    }
+
+
+    // if it succeed, generate a new password and send it back to the user.
+    const randomPassword = randomString({ length: 10 });
+
+    console.log(`generated random password of ${randomPassword}`);
+
+    user.password = randomPassword;
+    await user.save();
+
+    // send e-mail to user with the new password content
+    await TransactionalEmail.send(user.email, TS.translate("email", "passwordRecoveryGreetings"), "notification", {
+      notificationGreetings: TS.translate("email", "passwordRecoveryGreetings"),
+      notificationMessage: TS.translate("email", "passwordRecoveryMessage", { randomPassword }),
+      notificationEndPhrase: TS.translate("email", "passwordRecoveryEndPhrase")
+    });
+
+
+    if (randomPassword) {
+      return true;
+    } else {
+      throw new InternalServerError(`Error while trying to generate your new password. Please, contact the server admin at ${appEnv.general.ADMIN_EMAIL}`);
+    }
+
+
+
   }
 
   /* #############################################################|
