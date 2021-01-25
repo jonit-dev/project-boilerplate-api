@@ -4,6 +4,7 @@
 
 [API](https://youtu.be/ccyTRSPek7U)
 [MOBILE](https://youtu.be/K2lbm0qMLoI)
+[WEB](https://youtu.be/6b4eUkXB81A)
 
 # Folder structure
 
