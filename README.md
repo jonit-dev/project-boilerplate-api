@@ -36,7 +36,17 @@
 docker-compose up
 ```
 
-## Accessing our database on Robo3T
+# Accessing our database on Compass GUI
+
+- When creating a new connection, paste:
+
+```
+mongodb://admin:32258190@localhost:27017/localhost?authSource=admin
+```
+
+- PS: admin is your MONGO_INITDB_ROOT_USERNAME and 32258190 is your MONGO_INITDB_ROOT_PASSWORD
+
+## Accessing our database on Robo3T (recommended)
 
 - Make sure that before accessing your database, your docker db container is up and running.
 - Please install the free edition of Robo3T
