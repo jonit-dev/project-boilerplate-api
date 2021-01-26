@@ -1,4 +1,6 @@
 import { HttpStatus } from "@project-boilerplate/shared/dist";
+import apicache from "apicache-plus";
+import { Request, Response } from "express";
 import {
   controller,
   httpDelete,
@@ -50,6 +52,15 @@ export class InstitutionController implements interfaces.Controller {
     await this.institutionService.delete(id);
 
     return res.status(HttpStatus.OK).send();
+  }
+
+  @httpGet("/example/cached", apicache("1 minutes"))
+  private async cached(req: Request, res: Response): Promise<any> {
+
+    return res.status(HttpStatus.OK).send({
+      response: `cached example => ${new Date().toUTCString()}. The timestamp will only change once every 1 minute!`
+    });
+
   }
 
 }

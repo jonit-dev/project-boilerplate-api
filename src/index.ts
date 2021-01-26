@@ -14,7 +14,10 @@ import { errorHandlerMiddleware } from "./middlewares/errorHandler.midleware";
 
 const server = new InversifyExpressServer(container);
 
+
+
 server.setConfig((app) => {
+  // app.use(cache("5 minutes"));
   app.use(
     bodyParser.urlencoded({
       extended: true,
